@@ -20,8 +20,10 @@ class CourseFactory extends Factory
     protected $model = Course::class;
     public function definition(): array
     {
+
+        $CourseNames = ['Mathematics', 'Science', 'History', 'English', 'Computer Science'];
         return [
-            'name' => $this->faker->word,
+            'name' => $this->faker->randomElement($CourseNames),
             'code' => $this->faker->unique()->numberBetween(1000, 2000),
             'description' => $this->faker->text(100),
 
