@@ -19,9 +19,9 @@ return new class extends Migration
             $table->decimal('grade', 5, 2);
             $table->timestamps();
 
-            $table->foreign('student_id')->references('id')->on('students');
-            $table->foreign('course_id')->references('id')->on('courses');
-            $table->foreign('grade_item_id')->references('id')->on('grade_items');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->foreign('grade_item_id')->references('id')->on('grade_items')->onDelete('cascade');
         });
     }
 

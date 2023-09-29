@@ -134,7 +134,7 @@ class StudentController extends Controller
 
 
 
-
+        $student->delete();
 
         $data = [
             'status' => 'success',

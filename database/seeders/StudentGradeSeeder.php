@@ -16,33 +16,21 @@ class StudentGradeSeeder extends Seeder
      */
     public function run(): void
     {
-        // Retrieve a course and its grade items
-        $course = Course::find(2); // Replace with the course ID you want to seed
-        $gradeItems = GradeItem::where('course_id', $course->id)->get();
-        $existingCodes = Student::pluck('code')->toArray();
+        $courses = Course::all();
+        $students = Student::all();
 
-        // Seed grades for each student in the course
-        $students = Student::whereHas('courses', function ($query) use ($course) {
-            $query->where('course_id', $course->id);
-        })->get();
+        foreach ($courses as $course) {
+            $gradeItems = GradeItem::where('course_id', $course->id)->get();
 
-        foreach ($students as $student) {
-            foreach ($gradeItems as $gradeItem) {
-                // Generate random grades (you can adjust this logic)
-                $grade = rand(0, $gradeItem->max_degree);
-                // Generate a unique code for each student
-                do {
-                    $code = rand(1000000, 9999999); // Adjust the range as needed
-                } while (in_array($code, $existingCodes)); // Check for uniqueness
-
-
-                // Create a new student grade record
-                StudentGrade::create([
-                    'student_id' => $student->id,
-                    'course_id' => $course->id,
-                    'grade_item_id' => $gradeItem->id,
-                    'grade' => $grade,
-                ]);
+            foreach ($students as $student) {
+                foreach ($gradeItems as $gradeItem) {
+                    StudentGrade::create([
+                        'student_id' => $student->id,
+                        'course_id' => $course->id,
+                        'grade_item_id' => $gradeItem->id,
+                        'grade' => rand(0, $gradeItem->max_degree), // Generate a random grade
+                    ]);
+                }
             }
         }
     }

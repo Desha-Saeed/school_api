@@ -54,8 +54,9 @@ class CourseController extends Controller
                 ->toArray();
 
             $data[] = [
-                'Full Name' => $student->full_name,
-                'Student Code' => $student->code,
+                'id' => $student->id,
+                'full_name' => $student->full_name,
+                'student_code' => $student->code,
                 // Add grades for each grade item
                 // Assuming $gradeItems is a collection of grade items
                 ...$studentGrades,
@@ -63,6 +64,6 @@ class CourseController extends Controller
             ];
         }
 
-        return response()->json(['students' => $data], 200);
+        return response()->json(['course' => $course, 'students' => $data], 200);
     }
 }
