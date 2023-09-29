@@ -20,8 +20,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // Students routes
-
-
-
-
 Route::apiResource('/student', StudentController::class);
+
+// Course routes
+
+use App\Http\Controllers\Api\CourseController;
+
+Route::get('/course', [CourseController::class, 'index']);
+Route::get('/course', [CourseController::class, 'search']);
+Route::get('/courses/{courseId}/grades', [CourseController::class, 'getCourseWithStudentGrades']);
+
+
+// Enrollment routes
+
+use App\Http\Controllers\Api\Enrollment;
+
+Route::post('/enroll', [Enrollment::class, 'addStudentToCourse']);
+Route::delete('/enroll', [Enrollment::class, 'removeStudentFromCourse']);

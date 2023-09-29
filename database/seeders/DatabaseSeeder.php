@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(GradeItemSeeder::class);
         $this->call(EnrollmentSeeder::class);
+        $this->call(StudentGradeSeeder::class);
     }
 }

@@ -18,16 +18,20 @@ class Course extends Model
 
     public function students()
     {
-    
+
         return $this->belongsToMany(Student::class, 'enrollment');
-    
     }
 
     public function gradeItems()
-    
+
     {
-    
+
         return $this->hasMany(GradeItem::class);
-    
+    }
+
+
+    public function studentGrades()
+    {
+        return $this->hasMany(StudentGrade::class);
     }
 }
