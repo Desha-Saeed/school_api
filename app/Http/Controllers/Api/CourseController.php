@@ -15,7 +15,7 @@ class CourseController extends Controller
     public function index(Request $request)
     {
         $courses = Course::all();
-        return response()->json($courses);
+        return response()->json($courses, 200);
     }
 
 
@@ -54,7 +54,7 @@ class CourseController extends Controller
                 ->toArray();
 
             $data[] = [
-                'id' => $student->id,
+                'id' => $student,
                 'full_name' => $student->full_name,
                 'student_code' => $student->code,
                 // Add grades for each grade item

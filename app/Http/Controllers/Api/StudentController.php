@@ -7,7 +7,7 @@ use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\StudentResource;
 use App\Models\Student;
-use App\Traits\ApiResponse;
+
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\TryCatch;
 
@@ -86,7 +86,7 @@ class StudentController extends Controller
         $student = Student::find($id);
 
         if (!$student) {
-            return response()->json(['message' => 'User not found'], 400);
+            return response()->json(['message' => 'User not found'], 404);
         }
         return new StudentResource($student);
     }
@@ -111,7 +111,7 @@ class StudentController extends Controller
 
             return new StudentResource($student);
         } catch (ValidationException $e) {
-            return response()->json(['message' => $e->getMessage()], 400);
+            return response()->json(['message' => $e->getMessage()], 422);
         }
     }
 
@@ -128,7 +128,7 @@ class StudentController extends Controller
 
         if (!$student) {
 
-            return response()->json(['message' => 'User not found'], 400);
+            return response()->json(['message' => 'User not found'], 404);
         }
 
 

@@ -27,12 +27,12 @@ class Enrollment extends Controller
 
         // Check if the student is already enrolled in the course
         if ($student->courses->contains($course)) {
-            return response()->json(['message' => 'Student is already enrolled in the course'], 400);
+            return response()->json(['message' => 'Student is already enrolled in the course'], 409);
         }
 
         $student->courses()->attach($course);
 
-        return response()->json(['message' => 'Student added to the course'], 200);
+        return response()->json(['message' => 'Student added to the course'], 201);
     }
 
 
@@ -54,11 +54,11 @@ class Enrollment extends Controller
 
         // Check if the student is enrolled in the course
         if (!$student->courses->contains($course)) {
-            return response()->json(['message' => 'Student is not enrolled in the course'], 400);
+            return response()->json(['message' => 'Student is not enrolled in the course'], 404);
         }
 
         $student->courses()->detach($course);
 
-        return response()->json(['message' => 'Student removed from the course'], 200);
+        return response()->json(['message' => 'Student removed from the course'], 204);
     }
 }
